@@ -24,7 +24,7 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      className={`relative w-full overflow-hidden ${height === "tall" ? "min-h-[88vh]" : "min-h-[70vh]"}`}
+      className={`relative w-full overflow-hidden ${height === "tall" ? "min-h-[100vh]" : "min-h-[70vh]"}`}
     >
       <div className="absolute inset-0">
         <img
@@ -38,7 +38,7 @@ export function PageHero({
       </div>
 
       <div
-        className={`relative mx-auto flex h-full max-w-7xl items-end px-4 pt-32 pb-20 sm:px-6 lg:px-8 ${
+        className={`relative mx-auto flex h-full max-w-7xl items-center px-4 pt-32 pb-20 sm:px-6 lg:px-8 ${
           align === "center" ? "justify-center text-center" : ""
         }`}
         style={{ minHeight: height === "tall" ? "88vh" : "70vh" }}

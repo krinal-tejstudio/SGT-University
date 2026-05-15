@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/sgtu-updated.png";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -18,7 +18,7 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 100);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,24 +27,32 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
+        // "sticky top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-border shadow-card"
+          ? "bg-background/85 backdrop-blur-xl shadow-card"
           : "bg-transparent",
       )}
     >
-      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex justify-between lg:grid h-auto max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 px-4 sm:px-6 lg:px-8 py-4">
         <Link to="/" className="group flex min-w-0 items-center justify-self-start gap-2.5">
-          <img src={logo} alt="SGT University" className="h-10 w-auto max-w-[250px] object-contain" width={180} height={40} />
+          <img 
+          src={logo} 
+          alt="SGT University" 
+          className="h-14 w-auto max-w-[250px] object-contain" 
+          width={180} 
+          height={40} 
+          style={{ filter: scrolled ? "invert(1)" : "invert(0)" }}
+          />
         </Link>
 
-        <nav className="hidden items-center justify-center gap-1 justify-self-center md:flex" aria-label="Main">
+        <nav className="hidden items-center justify-center gap-1 justify-self-center lg:flex" aria-label="Main">
           {NAV.map((n) => (
             <Link
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="relative rounded-md px-3 py-2 text-sm font-medium text-foreground/75 transition-colors hover:text-foreground"
+              className={`relative rounded-md px-3 py-2 text-lg font-medium transition-colors ${!scrolled ? "text-white hover:text-white/80" : "text-foreground/75 hover:text-foreground"}`}
               activeProps={{ className: "text-primary font-semibold" }}
             >
               {n.label}
@@ -55,16 +63,16 @@ export function SiteHeader() {
         <div className="flex items-center justify-end justify-self-end gap-2">
           <Link
             to="/admissions"
-            className="hidden rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-card transition-all hover:bg-primary-glow hover:shadow-elegant md:inline-flex"
+            className={`hidden rounded-md px-4 py-2 text-sm font-medium transition-colors ${!scrolled ? "bg-white text-primary shadow-card hover:bg-white/80 hover:shadow-elegant" : "bg-primary text-primary-foreground shadow-card hover:bg-primary-glow hover:shadow-elegant"} lg:inline-flex`}
           >
             Apply Now
           </Link>
           <button
-            className="grid h-10 w-10 place-items-center rounded-md border border-border md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md border border-border lg:hidden bg-white"
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-5 w-5 text-primary" /> : <Menu className="h-5 w-5 text-primary" />}
           </button>
         </div>
       </div>
